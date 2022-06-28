@@ -5,7 +5,7 @@ import { createStackNavigator,  CardStyleInterpolators } from '@react-navigation
 import MemoListScreen from './src/screens/MemoListScreen';
 import MemoEditScreen from './src/screens/MemoEditScreen';
 import MemoCreateScreen from './src/screens/MemoCreateScreen';
-import LogInScreen from './src/screens/LoginScreen';
+import LogInScreen from './src/screens/LogInScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
