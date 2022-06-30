@@ -10,16 +10,9 @@ import LogInScreen from './src/screens/LogInScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
-const Stack = createStackNavigator();
+import { firebaseConfig } from './env'
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC7OhF1RU8EtfLuMXAh1zXGIfgCdJqSe8o",
-  authDomain: "memoapp-dcbae.firebaseapp.com",
-  projectId: "memoapp-dcbae",
-  storageBucket: "memoapp-dcbae.appspot.com",
-  messagingSenderId: "757880687819",
-  appId: "1:757880687819:web:33c90cf568e1d477159f4e"
-};
+const Stack = createStackNavigator();
 
 if(firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
@@ -33,7 +26,7 @@ export default function App() {
         screenOptions={{
           headerStyle: { backgroundColor: '#467FD3' },
           headerTitleStyle: { color: '#ffffff' },
-          headerTitle: 'Memo App',
+          headerTitle: 'Memo Apsp',
           headerTintColor: '#ffffff',
           headerBackTitle: 'Back',
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
