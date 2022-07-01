@@ -3,29 +3,32 @@ import {
   View, Text, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { shape, string, instanceOf } from 'prop-types'
 
 import Icon from './Icon';
 
-export default function MemoList() {
+export default function MemoList(props) {
+  const { memos } = props;
   const navigation = useNavigation();
   return (
     <View>
-      <TouchableOpacity
-        style={styles.memoListItem}
-        onPress = { () => { navigation.navigate('MemoDetail'); }}
-      >
-        <View>
-          <Text style={styles.memoListItemTitle}>買い物リスト</Text>
-          <Text style={styles.memoListItemDate}>2020年12月24日 10:00</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.memoDelete}
-          onPress={ () => {Alert.alert('Are you sure?'); }}
+      {memos.map((memo) => (
+          <TouchableOpacity
+          style={styles.memoListItem}
+          onPress = { () => { navigation.navigate('MemoDetail'); }}
         >
-          <Icon name="delete" size={24} color="#B0B0B0" />
+          <View>
+            <Text style={styles.memoListItemTitle}>{memo.bodyText}</Text>
+            <Text style={styles.memoListItemDate}>{string(memo.updatedAt)}</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.memoDelete}
+            onPress={ () => {Alert.alert('Are you sure?'); }}
+          >
+            <Icon name="delete" size={24} color="#B0B0B0" />
+          </TouchableOpacity>
         </TouchableOpacity>
-      </TouchableOpacity>
-
+        ))}
       <TouchableOpacity
         style={styles.memoListItem}
         onPress = { () => { navigation.navigate('MemoDetail'); }}
@@ -59,6 +62,14 @@ export default function MemoList() {
       </TouchableOpacity>
     </View>
   );
+}
+
+MemoList.propTypes={
+  memos: shape({
+    id: string,
+    bodyText: string,
+    updatedAt: instanceOf(Date),
+  }).isRequired,
 }
 
 const styles = StyleSheet.create({
