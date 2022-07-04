@@ -22,7 +22,7 @@ export default function MemoCreateScreen(props) {
       .then((docRef) => {
         console.log('Created!', docRef.id);
       })
-      .catch((error) => { 
+      .catch((error) => {
         console.log('Error!', error);
       })
     navigation.goBack()
