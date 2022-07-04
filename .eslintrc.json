@@ -19,6 +19,7 @@
     ],
     "rules": {
         "no-use-before-define":0,
-        "react/props-types": ["erro", { "ignore": ["navigation"]}]
+        "react/props-types": ["erro", { "ignore": ["navigation"]}],
+        "import/prefre-default-export": 0
     }
 }
