@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { shape, string } from 'prop-types';
 import firebase from 'firebase';
+import { translateErrors } from '../utils';
 
 import CircleButton from '../components/CircleButton';
 import { toDate } from 'date-fns/esm';
@@ -26,7 +27,8 @@ export default function MemoEditScreen(props) {
         navigation.goBack();
       })
       .catch((error) => {
-        Alert.alert(error.code);
+        const errorMsg = translateErrors(error.code);
+        Alert.alert(errorMsg.title, errorMsg.description);
       });
     }
   }
