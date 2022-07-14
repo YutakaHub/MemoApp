@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, SnapshotViewIOS, Text } from 'react-native';
+import {
+  View, StyleSheet, Text, Alert,
+} from 'react-native';
 import firebase from 'firebase';
 
 import MemoList from '../components/MemoList';
@@ -14,9 +16,10 @@ export default function MemoListScreen(props) {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     navigation.setOptions({
+      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => <LogOutButton />,
-   });
-  },[]);
+    });
+  }, []);
 
   useEffect(() => {
     const db = firebase.firestore();
@@ -28,7 +31,6 @@ export default function MemoListScreen(props) {
       unsubscribe = ref.onSnapshot((snapshot) => {
         const userMemos = [];
         snapshot.forEach((doc) => {
-          console.log(doc.id, doc.data());
           const data = doc.data();
           userMemos.push({
             id: doc.id,
@@ -38,24 +40,25 @@ export default function MemoListScreen(props) {
         });
         setMemos(userMemos);
         setIsLoading(false);
-      },(error) => {
-        console.log(error);
+      }, () => {
         setIsLoading(false);
-        Alert.alert('データの読み込みに失敗しました。')
+        Alert.alert('データの読み込みに失敗しました。');
       });
     }
     return unsubscribe;
-  },[]);
+  }, []);
 
   if (memos.length === 0) {
     return (
       <View style={emptyStyles.container}>
-      <Loading isLoading={isLoading} />
+        <Loading isLoading={isLoading} />
         <View style={emptyStyles.inner}>
           <Text sytel={emptyStyles.title}>最初のメモを作成してみよう！</Text>
           <Button
-          style={emptyStyles.button}
-          label="作成する" onPress={() => {navigation.navigate('MemoCreate')}} />
+            style={emptyStyles.button}
+            label="作成する"
+            onPress={() => { navigation.navigate('MemoCreate'); }}
+          />
         </View>
       </View>
     );
@@ -63,10 +66,10 @@ export default function MemoListScreen(props) {
 
   return (
     <View style={styles.container}>
-      <MemoList memos = {memos} />
+      <MemoList memos={memos} />
       <CircleButton
         name="plus"
-        onPress={ () => { navigation.navigate('MemoCreate') }}
+        onPress={() => { navigation.navigate('MemoCreate'); }}
       />
     </View>
   );
@@ -95,5 +98,5 @@ const emptyStyles = StyleSheet.create({
   },
   button: {
     alignSelf: 'center',
-  }
+  },
 });

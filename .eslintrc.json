@@ -1,7 +1,7 @@
 {
     "env": {
-        "es2021": true,
-        "node": true
+        "browser": true,
+        "es2021": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -11,15 +11,16 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 13,
+        "ecmaVersion": 12,
         "sourceType": "module"
     },
     "plugins": [
         "react"
     ],
     "rules": {
-        "no-use-before-define":0,
-        "react/props-types": ["erro", { "ignore": ["navigation"]}],
-        "import/prefre-default-export": 0
+        "no-use-before-define": 0,
+        "react/prop-types": ["error", { "ignore": ["navigation"] }],
+        "import/prefer-default-export": 0,
+        "react/jsx-no-bind": 0
     }
 }

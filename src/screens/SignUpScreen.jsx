@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, StyleSheet, TouchableOpacity, Alert,
@@ -14,16 +13,13 @@ export default function SignUpScreen(props) {
 
   function handlePress() {
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const { user } = userCredential
-        console.log(user.uid);
+      .then(() => {
         navigation.reset({
           index: 0,
-          routes: [{ name: 'MemoList'}],
+          routes: [{ name: 'MemoList' }],
         });
       })
       .catch((error) => {
-        console.log(error.code, error.message);
         const errorMsg = translateErrors(error.code);
         Alert.alert(errorMsg.title, errorMsg.description);
       });
@@ -34,36 +30,36 @@ export default function SignUpScreen(props) {
       <View style={styles.inner}>
         <Text style={styles.title}>Sign Up</Text>
         <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={(text) => { setEmail(text); }}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        placeholder="Email Address"
-        textContentType="emailAddress"
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => { setEmail(text); }}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="Email Address"
+          textContentType="emailAddress"
         />
         <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={(password) => { setPassword(password); }}
-        autoCapitalize="none"
-        placeholder="Password"
-        secureTextEntry
-        textContentType="password"
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => { setPassword(text); }}
+          autoCapitalize="none"
+          placeholder="Password"
+          secureTextEntry
+          textContentType="password"
         />
         <Button
           label="Submit"
-          onPress = {handlePress}
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already registered?</Text>
           <TouchableOpacity
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'LogIn'}],
-            })
-          }}
+            onPress={() => {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'LogIn' }],
+              });
+            }}
           >
             <Text style={styles.footerLink}>Log in</Text>
           </TouchableOpacity>

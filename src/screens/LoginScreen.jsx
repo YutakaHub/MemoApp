@@ -6,7 +6,7 @@ import firebase from 'firebase';
 
 import Button from '../components/Button';
 import Loading from '../components/Loading';
- import { translateErrors } from '../utils';
+import { translateErrors } from '../utils';
 
 export default function LogInScreen(props) {
   const { navigation } = props;
@@ -19,10 +19,10 @@ export default function LogInScreen(props) {
       if (user) {
         navigation.reset({
           index: 0,
-          routes: [{ name: 'MemoList'}],
+          routes: [{ name: 'MemoList' }],
         });
       } else {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     });
     return unsubscribe;
@@ -31,12 +31,10 @@ export default function LogInScreen(props) {
   function handlePress() {
     setIsLoading(true);
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        console.log(user.uid);
+      .then(() => {
         navigation.reset({
           index: 0,
-          routes: [{ name: 'MemoList'}],
+          routes: [{ name: 'MemoList' }],
         });
       })
       .catch((error) => {
@@ -49,32 +47,32 @@ export default function LogInScreen(props) {
   }
 
   return (
-    <View style={styles.conteiner}>
+    <View style={styles.container}>
       <Loading isLoading={isLoading} />
       <View style={styles.inner}>
         <Text style={styles.title}>Log in</Text>
         <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={(text) => { setEmail(text); }}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        placeholder="Email Address"
-        textContentType="emailAddress"
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => { setEmail(text); }}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="Email Address"
+          textContentType="emailAddress"
         />
         <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={(password) => { setPassword(password); }}
-        autoCapitalize="none"
-        placeholder="Password"
-        secureTextEntry
-        textContentType="password"
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => { setPassword(text); }}
+          autoCapitalize="none"
+          placeholder="Password"
+          secureTextEntry
+          textContentType="password"
         />
         <Button
           label="Submit"
           onPress={handlePress}
-         />
+        />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Not registered</Text>
           <TouchableOpacity
